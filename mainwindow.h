@@ -2,6 +2,8 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QLabel>
+#include <QScrollArea>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -17,5 +19,8 @@ public:
 
 private:
     Ui::MainWindow *ui;
+    QLabel *imageLabel;
+private slots:
+    void OpenFile();
 };
 #endif // MAINWINDOW_H
