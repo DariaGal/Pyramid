@@ -14,6 +14,7 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     QObject::connect(ui->action_OpenFile,SIGNAL(triggered()),this, SLOT(OpenFile()));
+    QObject::connect(ui->comboBoxLayer, SIGNAL(currentIndexChanged(const QString&)), this,SLOT(ChangeLayer(const QString&)));
 
     imageLabel = new QLabel;
     ui->scrollArea->setWidget(imageLabel);
@@ -41,7 +42,26 @@ void MainWindow::OpenFile()
         imageLabel->resize(imageLabel->sizeHint());
         ImagePyramidConverter pyramidConverter = ImagePyramidConverter(image);
         QVector<ImageInfo> pyramid = pyramidConverter.GetPyramid();
+        images.insert(name,new ImagePyramid(name,pyramid.count(),pyramid));
+
+        ui->comboBoxFile->addItem(name);
+        ui->comboBoxFile->setCurrentText(name);
+        ui->comboBoxLayer->clear();
+        for(int i = 0; i < pyramid.count(); i++)
+            ui->comboBoxLayer->addItem(QString::number(i));
+
+        ui->labelSize->setText(QString::number(image.width())+"x"+QString::number(image.height()));
+
     }
+}
+
+void MainWindow::ChangeLayer(const QString& layer)
+{
+    QString fileName = ui->comboBoxFile->currentText();
+    ImageInfo imageInfo = images[fileName]->images[layer.toInt()];
+    imageLabel->setPixmap(QPixmap::fromImage(imageInfo.image));
+    imageLabel->resize(imageLabel->sizeHint());
+    ui->labelSize->setText(QString::number(imageInfo.image.width())+"x"+QString::number(imageInfo.image.height()));
 }
 
 MainWindow::~MainWindow()
