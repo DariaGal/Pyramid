@@ -8,10 +8,11 @@ class ImagePyramidConverter
 private:
     QVector<QImage> images;
     QImage original;
+    QImage* ConvertImage(QImage current);
+    QImage* ConvertImageSmooth(QImage);
 public:
     ImagePyramidConverter(QImage image);
     QVector<ImageInfo> GetPyramid();
-    QImage* ConvertImage(QImage current);
 };
 
 #endif // IMAGEPYRAMIDCONVERTER_H
