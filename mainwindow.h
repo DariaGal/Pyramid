@@ -4,6 +4,8 @@
 #include <QMainWindow>
 #include <QLabel>
 #include <QScrollArea>
+#include <QMap>
+#include "imagepyramid.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -20,6 +22,8 @@ public:
 private:
     Ui::MainWindow *ui;
     QLabel *imageLabel;
+    QMap<QString,ImagePyramid*> images;
+
 private slots:
     void OpenFile();
 };
