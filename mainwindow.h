@@ -27,5 +27,6 @@ private:
 private slots:
     void OpenFile();
     void ChangeLayer(const QString&);
+    void ChangeFile(const QString&);
 };
 #endif // MAINWINDOW_H
